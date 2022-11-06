@@ -1,0 +1,31 @@
+<div class='searchWindow'>
+  <h1 class='header'><%=header%></h1>
+
+  <div class='inputWindow'>
+  <% var path = "href='"+dest+"?"; %>
+  <% fields.forEach(function(field) { if (field.type != 'hidden') {%>
+    <% } if (field !== fields[0]) { %>
+      <% path += "+'&"; %>
+    <% } %>
+    <% path += field.type != 'hidden' ? field.id+"='+document.getElementById('"+field.id+"').value" : field.id+"="+field.value+"'"; %>
+    <div class='input field'>
+      <h3><%=field.name%></h3>
+      <input type="<%=field.type%>" id="<%=field.id%>" onkeyup="enterCredentials(event, <%=path%>)"></input>
+    </div>
+  <% }); %>
+  </div>
+  <script>
+    function enterCredentials(event, path) {
+        if (event.keyCode == 13)
+          location.href=path;
+    };
+  </script>
+  <br>
+
+  <% if (errMsg.length !== 0) { %>
+    <span class="error"><%=errMsg%></span>
+    <br>
+  <% } %>
+  <a class="button" href="" onclick="<%=path%>"><%=enterMsg%></a>
+  <br>
+</div>
