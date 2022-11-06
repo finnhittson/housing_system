@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title><%=name%> Residential Community</title>
+   		<link rel="stylesheet" href="/infoPage.css" type="text/css">
+		<script>
+			function copyToClipboard(str) {
+				var e = document.createElement('textarea');
+				e.value = str;
+				e.setAttribute('readonly', '');
+				e.style = {position: 'absolute', left: '-9999px'};
+				document.body.appendChild(e);
+				e.select();
+				document.execCommand('copy');
+				document.body.removeChild(e);
+			}
+		</script>
+	</head>
+	<body>
+		<h1 class='header'><%=name%> Residential Community</h1>
+
+		<div class='window'>
+			<h3 class='header'>Basic Information</h3>
+			<div class='infoColumns'>
+				<div class='infoColumn'>
+					<h3 class='header'>Director</h3>
+					<div class='infoItem'>
+						<p>Name: <%=directorName%></p>
+					</div>
+					<div class='infoItem'>
+						<p>Phone: <%=directorPhone%></p>
+					</div>
+				</div>
+
+				<div class='infoColumn'>
+					<h3 class='header'>Office</h3>
+					<div class='infoItem'>
+						<p>Phone: <%=officePhone%></p>
+					</div>
+					<div class='infoItem'>
+						<div class='leftItem'><p>Email: <%=officeEmail%></p></div>
+						<div class='rightItem'><button class='infoButton' onclick="copyToClipboard('<%=officeEmail%>');">Copy</button></div>
+					</div>
+					<div class='infoItem'>
+						<div class='leftItem'><p>Address: <%=officeAddress%></p></div>
+						<div class='rightItem'><button class='infoButton' onclick="copyToClipboard('<%=officeAddress%>');">Copy</button></div>
+					</div>
+				</div>
+			</div>
+
+			<div class='infoBody'>
+				<h3 class='header'>Buildings</h3>
+
+				<% buildings.forEach(function(bname) { %>
+					<a class='button' href="/building/<%=bname%>"><%=bname%></a>
+				<% }); %>
+			</div>
+		</div>
+
+		<a class='button' href="../">Go Back</a>
+	</body>
+</html>

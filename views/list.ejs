@@ -1,0 +1,21 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title><%=name%> List</title>
+		<link rel="stylesheet" href="/infoPage.css" type="text/css">
+  </head>
+	<body>
+    <div class='infoColumn'>
+      <h3 class='header'><%=name%> List</h3>
+      <% listData.slice(0, 30).forEach(function(listEntry) { %>
+        <div class='infoItem'>
+          <div class='leftItem'><p><%=listEntry.name%></p></div>
+          <div class='rightItem'><a class='infoButton' href="<%=listEntry.url%>">View <%=name%></a></div>
+        </div>
+      <% }); %>
+    </div>
+  </body>
+</html>

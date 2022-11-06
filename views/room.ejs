@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Room <%=bname%> <%=num%></title>
+   		<link rel="stylesheet" href="/infoPage.css" type="text/css">
+    </head>
+	<body>
+		<h1 class='header'><%=bname%> <%=num%></h1>
+
+		<div class='window'>
+			<h3 class='header'>Basic Information</h3>
+			<div class='infoColumns'>
+				<div class='infoColumn'>
+					<div class='infoItem'>
+						<p>Capacity: <%=cap%></p>
+					</div>
+					<div class='infoItem'>
+						<div class='leftItem'><p>Located in <%=bname%>, Floor <%=floor%></p></div>
+						<div class='rightItem'><a class='infoButton' href="/building/<%=bname%>">View Building</a></div>
+						<% if(suiteNum !== -1) { %>
+							<div class='rightItem'><a class='infoButton' href="/suite/<%=bname%>-<%=suiteNum%>">View Suite</a></div>
+						<% } %>
+					</div>
+					<div class='infoItem'>
+						<p>Price: $<%=price%></p>
+					</div>
+				</div>
+	
+				<div class='infoColumn'>
+					<div class='infoItem'>
+						<p>Room Dimensions: <%=dimW%> x <%=dimL%> x <%=dimH%></p>
+					</div>
+					<div class='infoItem'>
+						<p>Bed Dimensions: <%=bedW%> x <%=bedL%> x <%=bedH%></p>
+					</div>
+					<div class='infoItem'>
+						<p>Furniture: <%=furnDesc%></p>
+					</div>
+				</div>
+			</div>
+
+			<% if (canJoinRoom) { %>
+				<h3 class='header'>
+					<a class='button' href='<%=bname%>-<%=num%>/join'>Join Room</a>
+				</h3>
+			<% } %>
+
+			<% if (typeof notificationMsg !== 'undefined') { %>
+				<span class="notificationMsg"><%=notificationMsg%></span>
+			<% } %>
+		</div>
+
+		<a class='button' href="/">Go Back</a>
+	</body>
+</html>

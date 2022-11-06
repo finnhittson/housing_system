@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Student Overview: <%=name%></title>
+		<link rel="stylesheet" href="/infoPage.css" type="text/css">
+		<script>
+			function copyToClipboard(str) {
+				var e = document.createElement('textarea');
+				e.value = str;
+				e.setAttribute('readonly', '');
+				e.style = {position: 'absolute', left: '-9999px'};
+				document.body.appendChild(e);
+				e.select();
+				document.execCommand('copy');
+				document.body.removeChild(e);
+			}
+		</script>		
+    </head>
+	<body>
+		<h1 class='header'><%=name%></h1>
+		<% if (loggedIn) { %>
+			<p class='subheader'><b>Student ID: <%=sid%></b></p>
+		<% } %>
+
+		<div class='window'>
+			<% if (loggedIn) { %>
+				<a class='button' href="/user-edit/student/search?SID=<%=sid%>">Edit Information</a>
+			<% } else { %>
+				<a class='button' href='/login/student'>Login</a>
+			<% } %>
+			<div class='infoColumns'>
+				<div class='infoColumn'>
+					<h3 class='header'>Contact Information</h3>
+					<div class='infoItem'><p>Phone: <%=phone%></p></div>
+					<div class='infoItem'>
+						<div class='leftItem'><p>Email: <%=email%></p></div>
+						<div class='rightItem'><button class='infoButton' onclick="copyToClipboard('<%=email%>');">Copy</button></div>
+					</div>
+				</div>
+
+				<div class='infoColumn'>
+					<h3 class='header'>School Information</h3>
+					<div class='infoItem'><p>Year: <%=year%></p></div>
+					<div class='infoItem'><p>Major: <%=major%></p></div>
+				</div>
+
+				<div class='infoColumn'>
+					<h3 class='header'>Preferences</h3>
+					<div class='infoItem'><p>Music: <%=pref_music%></p></div>
+					<div class='infoItem'><p>Bedtime: <%=pref_bed%></p></div>
+					<div class='infoItem'><p>Cleanliness: <%=pref_clean%></p></div>
+				</div>
+			</div>
+
+			<% if (loggedIn && bname && rnum) { %>
+				<div class='infoColumns header' style='width: 60%; margin: auto;'>
+					<div>
+						<h3 style='display: inline-block;'>Room: </h3>
+						<a class='button' href='/room/<%=bname%>-<%=rnum%>'><%=bname%> <%=rnum%></a>
+					</div>
+					<h3 style='display: inline-block'>Roomates: <%=roommates.length%>/<%=roomCap - 1%></h3>
+				</div>
+			    <% if (roommates.length > 0) { %>
+				    <% roommates.forEach(function(student) { %>
+					<a class='button' href="/student/<%=student.sid%>?backSID=<%=sid%>"><%=student.name%></a>
+				    <% }); %>
+			    	<br><br>
+			    <% } %>
+			    <% if (roommates.length + 1 < roomCap) { %>
+			    	<a class='button' href="/student/roommate-search/<%=sid%>">Find Rommates!</a>
+			    	<br><br>
+			    <% } %>
+			<% } else if (loggedIn) { %>
+				<h3 class='header'>Room:
+					<a class='button' href='/list/room'>Find a Room</a>
+				</h3>
+			<% } %>
+		</div>
+		
+		<% if (backSID) { %>
+			<a class='button' href="/student/<%=backSID%>">Go Back</a>
+		<% } else { %>
+			<a class='button' href="/">Go Back</a>
+		<% } %>
+	</body>
+</html>

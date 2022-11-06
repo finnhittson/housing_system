@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Building Overview: <%=name%></title>
+		<link rel="stylesheet" href="/infoPage.css" type="text/css">
+		<script>
+			function copyToClipboard(str) {
+				var e = document.createElement('textarea');
+				e.value = str;
+				e.setAttribute('readonly', '');
+				e.style = {position: 'absolute', left: '-9999px'};
+				document.body.appendChild(e);
+				e.select();
+				document.execCommand('copy');
+				document.body.removeChild(e);
+			}
+		</script>
+    </head>
+	<body>
+		<h1 class='header'><%=name%></h1>
+		<div class='window'>
+			<div class='infoColumns'>
+				<div class='infoColumn'>
+					<h3 class='header'>Building Information</h3>
+					<div class='infoItem'>
+						<div class='leftItem'><p>Address: <%=address%></p></div>
+						<div class='rightItem'><button class='infoButton' onclick="copyToClipboard('<%=address%>');">Copy</button></div>
+					</div>
+					<div class='infoItem'><p>Number of Floors: <%=numFloors%></p></div>
+					<div class='infoItem'><p>Number of Rooms: <%=numRooms%></p></div>
+					<div class='infoItem'><p>Total Capacity: <%=capacity%></p></div>
+				</div>
+
+				<div class='infoColumn'>
+					<h3 class='header'>Building Description</h3>
+					<div class='infoItem'><p><%=buildingDescription%></p></div>
+					<h3 class='header'>Utilities</h3>
+					<div class='infoItem'><p><%=utilitiesDescription%></p></div>
+				</div>
+			</div>
+
+			<div class='infoColumns'>
+				<div class='infoColumn' style='text-align: center;'>
+					<h3 class='header'>Residential Community</h3>
+					<a class='button' href="/community/<%=residentialCommunity%>"><%=residentialCommunity%></a>
+				</div>
+
+				<div class='infoColumn'>
+					<h3 class='header'>RAs</h3>
+					<% RAs.forEach(function(student) { %>
+						<div class='infoItem'>
+							<div class='leftItem'><p><%=student.name%></p></div>
+							<div class='rightItem'><a class='infoButton' href="/student/<%=student.sid%>">View Student</a></div>
+						</div>
+					<% }); %>
+				</div>
+			</div>
+		</div>
+
+		<div class='window'>
+			<div class='infoColumns'>
+				<div class='infoColumn' style='text-align: center;'>
+					<%- include('partials/form.ejs', RoomSearchFormArgs) %>
+				</div>
+
+				<div class='infoColumn' style='text-align: center;'>
+					<%- include('partials/form.ejs', SuiteSearchFormArgs) %>
+				</div>
+			</div>
+		</div>
+
+		<a class='button' href="../">Go Back</a>
+	</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Modify <%=entity%></title>
+   		<link rel="stylesheet" href="/infoPage.css" type="text/css">
+	</head>
+	<body>
+		<div class='header'>
+			<h1>Modify <%=entity%></h1>
+		</div>
+
+		<div class='window'>
+			<div class='infoBody' style="width: 40%;">
+				<h3 class='header'>Search for <%=entity%></h3>
+				<% var searchArgs = ""; %>
+				<% Object.keys(searches).forEach(function(id, i) { %>
+					<input id="search<%=id%>" placeholder="Enter <%=searches[id]%>"></input>
+					<% searchArgs += i === 0 ? "'" : "+'&"; %>
+					<% searchArgs += id + "='+document.getElementById('search" + id + "').value"; %>
+				<% }); %>
+				<a class="button" href="" onclick="href='/admin-edit/<%=path%>/search/?AID=<%=aid%>&' + <%=searchArgs%>">Search</a>
+			</div>
+			<div class='infoColumns'>
+				<% var pathArgs = "" %>
+				<% columns.forEach(function(column) { %>
+					<div class='infoColumn'>
+						<% if (column.header.length !== 0) { %>
+							<h3 class='header'><%=column.header%></h3>
+						<% } %>
+						<% Object.keys(column.attrs).forEach(function(id) { %>
+							<div class='infoItem'>
+								<div class='leftItem'><p><%=column.attrs[id]%></p></div>
+								<div class='rightItem'><input id="input<%=id%>" value='<%=initialVals[id]%>'></div>
+							</div>
+							<% pathArgs += pathArgs.length === 0 ? "'" : "+'&"; %> 
+							<% pathArgs += id + "='+document.getElementById('input" + id + "').value"; %>
+						<% }); %>
+					</div>
+				<% }); %>
+			</div>
+
+			<div class='infoBody'>
+				<h3 class='header'>Actions:</h3>
+				<a class='button' href='' onclick="href='/admin-edit/<%=path%>?AID=<%=aid%>&rm=false&' + <%=pathArgs%>">Add/Update <%=entity%></a>
+				<a class='button' href='' onclick="href='/admin-edit/<%=path%>?AID=<%=aid%>&rm=true&' + <%=pathArgs%>">Remove <%=entity%></a>
+				<% if (errMsg.length !== 0) { %>
+					<br>
+				    <span class="error"><%=errMsg%></span>
+				<% } %>
+			</div>
+		</div>
+
+		<a class='button' href="/admin/<%=aid%>">Go Back</a>
+	</body>
+</html>

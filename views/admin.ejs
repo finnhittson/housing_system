@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Admin Overview: <%=name%></title>
+   		<link rel="stylesheet" href="/infoPage.css" type="text/css">
+	</head>
+	<body>
+		<div class='header'>
+			<h1><%=name%></h1>
+		</div>		
+
+		<div class='window'>
+			<% if (loggedIn) { %>
+				<a class='button' href='/user-edit/admin/search?AID=<%=aid%>'>Edit Information</a>
+			<% } else { %>
+				<a class='button' href='/login/admin'>Login</a>
+			<% } %>
+			
+			<h3 class='header'>Basic Information</h3>
+			<div class='infoColumns'>
+				<div class='infoColumn'>
+					<div class='infoItem'>
+						<p>Administrator ID: <%=aid%></p>
+					</div>
+				</div>
+
+				<div class='infoColumn'>
+					<div class='infoItem'>
+						<p>Phone: <%=phone%></p>
+					</div>
+	
+					<div class='infoItem'>
+						<p>Email: <%=email%></p>
+					</div>
+				</div>
+			</div>
+
+			<% if (loggedIn) { %>
+				<h3 class='header'>Edit Housing</h3>
+				<div class='infoColumns'>
+					<% const halfLength = Math.ceil(editPages.length / 2); %>
+					<% var arr = editPages.slice(0, halfLength); %>
+					<% for (var i = 0; i < 2; i++) { %>
+						<div class='infoColumn'>
+							<% arr.forEach(function(page) { %>
+								<div class='infoItem'>
+									<div class='leftItem'><p><%=page.name%></p></div>
+									<div class='rightItem'><a class='infoButton' href="/admin-edit/<%=page.path%>?AID=<%=aid%>">Edit</a></div>
+								</div>
+							<% }); %>
+						</div>
+						<% arr = editPages.slice(-halfLength + 1); // Set arr to second half of pages data. %>
+					<% } %>
+				</div>
+
+				<h3 class='header'>Admin Procedures</h3>
+				<div class='infoColumn'>
+					<% procedurePages.forEach(function(page) { %>
+						<div class='infoItem'>
+							<div class='leftItem'><p><%=page.name%></p></div>
+							<div class='rightItem'><a class='infoButton' href="/admin-edit/<%=page.path%>?AID=<%=aid%>">Goto</a></div>
+						</div>
+					<% }); %>
+				</div>
+			<% } %>
+		</div>
+
+		<a class='button' href="/">Go Back</a>
+	</body>
+</html>

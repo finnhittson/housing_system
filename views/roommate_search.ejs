@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Student Overview</title>
+		<link rel="stylesheet" href="/infoPage.css" type="text/css">
+    </head>
+	<body>
+		<h1 class='header'>Roommates</h1>
+		<div class='window'>
+			<% var prev = -1; %>
+		    <% roomlessStudents.forEach(function(student) { %>
+				<% if (prev != -1 && student.score != prev) { %>
+					</div>
+				<% } %>			
+				<% if (student.score != prev) { %>
+					<h3 class='header'>Similarity Score: <%=student.score%> / 3</h3>
+					<div style='display: grid; grid-template-columns: repeat(4, 1fr); text-align: left;'>
+				<% } %>
+					<div >
+						<a class='button' href="/student/<%=student.sid%>?backSID=<%=sid%>"><%=student.name%></a>
+					</div>
+				<% prev = student.score; %>
+		    <% }); %>
+			<% if (prev != -1) { %>
+				</div>
+			<% } %>
+		</div>
+
+		<a class='button' href="/student/<%=sid%>">Go Back</a>
+	</body>
+</html>
